@@ -1,0 +1,25 @@
+name: Build HL-DEMO
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: devkitpro/devkitarm
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build
+        run: make
+        env:
+          DEVKITPRO: /opt/devkitpro
+          DEVKITARM: /opt/devkitpro/devkitARM
+      - name: Upload CIA + 3DSX
+        uses: actions/upload-artifact@v4
+        with:
+          name: hl-demo-3ds
+          path: |
+            hl-demo.cia
+            hl-demo.3dsx
