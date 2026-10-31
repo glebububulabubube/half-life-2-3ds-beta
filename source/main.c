@@ -132,7 +132,7 @@ int main(void) {
         if (k & KEY_START) return 0;
         gfxFlushBuffers();
         gfxSwapBuffers();
-        gspWaitForEvent(GSPGPU_EVENT_VBlank0);
+        gspWaitForEvent(GSPGPU_EVENT_VBlank0, false);
     }
     consoleClear();
 
@@ -151,8 +151,10 @@ int main(void) {
 
         /* collision: keep inside walkable cells */
         if (worldMap[(int)p.x][(int)p.y] > 0) { p.x -= p.dx * move; p.y -= p.dy * move; }
-        if (p.x < 1) p.x = 1; if (p.x > MAP_W-2) p.x = MAP_W-2;
-        if (p.y < 1) p.y = 1; if (p.y > MAP_H-2) p.y = MAP_H-2;
+        if (p.x < 1) { p.x = 1; }
+        if (p.x > MAP_W-2) { p.x = MAP_W-2; }
+        if (p.y < 1) { p.y = 1; }
+        if (p.y > MAP_H-2) { p.y = MAP_H-2; }
 
         u8 *fb = gfxGetFramebuffer(GFX_TOP, GFX_LEFT, NULL, NULL);
 
@@ -225,7 +227,7 @@ int main(void) {
 
         gfxFlushBuffers();
         gfxSwapBuffers();
-        gspWaitForEvent(GSPGPU_EVENT_VBlank0);
+        gspWaitForEvent(GSPGPU_EVENT_VBlank0, false);
 
         if (down & KEY_START) break;
     }
