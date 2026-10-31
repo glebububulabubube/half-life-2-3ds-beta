@@ -11,13 +11,13 @@ jobs:
       image: devkitpro/devkitarm
     steps:
       - uses: actions/checkout@v4
+
       - name: Build
-        run: |
-          export PATH="$DEVKITPRO/tools/bin:$PATH"
-          make
+        run: make
         env:
           DEVKITPRO: /opt/devkitpro
           DEVKITARM: /opt/devkitpro/devkitARM
+
       - name: Upload CIA + 3DSX
         uses: actions/upload-artifact@v4
         with:
