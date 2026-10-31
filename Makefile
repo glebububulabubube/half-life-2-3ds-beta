@@ -1,6 +1,5 @@
 .SUFFIXES:
-
-TOPDIR ?= $(CURDIR)
+TOPDIR := $(CURDIR)
 include $(DEVKITARM)/3ds_rules
 
 TARGET := hl-demo
@@ -19,7 +18,7 @@ $(TARGET).elf: $(OFILES)
 	$(CC) $(LDFLAGS) $(OFILES) -L$(CTRULIB)/lib $(LIBS) -o $@
 
 $(TARGET).cia: $(TARGET).elf
-	makerom -f cia -o $@ -elf $< -target t -desc app:4
+	makerom -f cia -o $@ -elf $< -rsf $(CURDIR)/hl-demo.rsf -target t
 
 %.o: source/%.c
 	$(CC) -c $(CFLAGS) $< -o $@
