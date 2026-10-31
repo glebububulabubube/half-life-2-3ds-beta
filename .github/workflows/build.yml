@@ -12,7 +12,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Build
-        run: make
+        run: |
+          source /etc/profile
+          export PATH="$DEVKITPRO/tools/bin:$PATH"
+          make
         env:
           DEVKITPRO: /opt/devkitpro
           DEVKITARM: /opt/devkitpro/devkitARM
