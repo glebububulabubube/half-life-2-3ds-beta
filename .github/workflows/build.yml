@@ -27,7 +27,9 @@ jobs:
           chmod +x /usr/local/bin/makerom
 
       - name: Build
-        run: make
+        run: |
+          cp hl-demo.rsf build/hl-demo.rsf
+          make
 
       - name: Upload CIA + 3DSX
         uses: actions/upload-artifact@v4
