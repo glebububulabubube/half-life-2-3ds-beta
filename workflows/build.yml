@@ -9,16 +9,26 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: devkitpro/devkitarm
-    defaults:
-      run:
-        shell: bash -l {0}
     env:
       DEVKITPRO: /opt/devkitpro
       DEVKITARM: /opt/devkitpro/devkitARM
     steps:
       - uses: actions/checkout@v4
+
+      - name: Install makerom
+        run: |
+          apt-get update -y
+          apt-get install -y unzip
+          curl -L -o /tmp/makerom.zip https://github.com/3DSGuy/Project_CTR/releases/download/v0.18/makerom_lnx.zip
+          cd /tmp && unzip -o makerom.zip
+          mkdir -p /usr/local/bin
+          cp /tmp/makerom /usr/local/bin/
+          chmod +x /usr/local/bin/makerom
+          makerom --help >/dev/null 2>&1 || true
+
       - name: Build
         run: make
+
       - name: Upload CIA + 3DSX
         uses: actions/upload-artifact@v4
         with:
