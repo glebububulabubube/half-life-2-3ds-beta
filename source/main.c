@@ -23,6 +23,8 @@
 
 #define FOV 66.0
 
+#define COLOR_RGB(r,g,b)  (((u32)(r) << 16) | ((u32)(g) << 8) | (u32)(b))
+
 typedef struct {
     double x, y, dx, dy, pa;
 } Player;
@@ -95,7 +97,7 @@ static void genTextures(void) {
                         b = (t % 2) ? 60 : 170;
                     } break;
                 }
-                texture[t][y * TEX_W + x] = RGB8(r, g, b);
+                texture[t][y * TEX_W + x] = COLOR_RGB(r, g, b);
             }
         }
     }
@@ -130,7 +132,7 @@ int main(void) {
         if (k & KEY_START) return 0;
         gfxFlushBuffers();
         gfxSwapBuffers();
-        gfxWaitForEvent(GSPGPU_EVENT_VBlank0);
+        gspWaitForEvent(GSPGPU_EVENT_VBlank0);
     }
     consoleClear();
 
@@ -210,20 +212,20 @@ int main(void) {
 
             /* floor and ceiling shading */
             for (int y = drawEnd + 1; y < SCR_H; y++) {
-                u32 c = 40; putPixel(fb, x, y, RGB8(c, c, c));
+                u32 c = 40; putPixel(fb, x, y, COLOR_RGB(c, c, c));
             }
             for (int y = 0; y < drawStart; y++) {
-                u32 c = 18; putPixel(fb, x, y, RGB8(c, c, c));
+                u32 c = 18; putPixel(fb, x, y, COLOR_RGB(c, c, c));
             }
         }
 
         /* crosshair */
         int cx = SCR_W/2 - 1, cy = SCR_H/2 - 1;
-        for (int i = -3; i <= 3; i++) { putPixel(fb, cx+i, cy, RGB8(255,255,255)); putPixel(fb, cx, cy+i, RGB8(255,255,255)); }
+        for (int i = -3; i <= 3; i++) { putPixel(fb, cx+i, cy, COLOR_RGB(255,255,255)); putPixel(fb, cx, cy+i, COLOR_RGB(255,255,255)); }
 
         gfxFlushBuffers();
         gfxSwapBuffers();
-        gfxWaitForEvent(GSPGPU_EVENT_VBlank0);
+        gspWaitForEvent(GSPGPU_EVENT_VBlank0);
 
         if (down & KEY_START) break;
     }
