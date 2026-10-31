@@ -84,7 +84,7 @@ $(OUTPUT).3dsx: $(OUTPUT).elf $(OUTPUT).smdh
 
 $(OUTPUT).cia: $(OUTPUT).elf
 	@echo building cia ...
-	@makerom -f cia -o $@ -elf $(OUTPUT).elf -target t
+	@makerom -f cia -o $@ -elf $(OUTPUT).elf -target t -desc app:4
 
 %.o: %.c
 	@echo building $(notdir $<)
