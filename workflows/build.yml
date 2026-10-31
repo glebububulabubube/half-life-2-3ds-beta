@@ -15,15 +15,16 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install makerom (binary)
+      - name: Install makerom
         run: |
+          apt-get update -y
+          apt-get install -y unzip
+          cd /tmp
+          curl -L -o makerom.zip https://github.com/3DSGuy/Project_CTR/releases/download/makerom-v0.18.4/makerom-v0.18.4-ubuntu_x86_64.zip
+          unzip -o makerom.zip
           mkdir -p /usr/local/bin
-          curl -L -o /usr/local/bin/makerom https://github.com/3DSGuy/Project_CTR/releases/download/v0.18.1/makerom_lnx_v18.zip
-          echo "downloaded, now extracting"
-          cd /tmp && unzip -o /usr/local/bin/makerom
-          mv /tmp/makerom /usr/local/bin/makerom
+          cp makerom /usr/local/bin/
           chmod +x /usr/local/bin/makerom
-          makerom --version || true
 
       - name: Build
         run: make
