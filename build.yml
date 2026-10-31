@@ -13,8 +13,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Build
         run: |
-          source /etc/profile
-          export PATH="$DEVKITPRO/tools/bin:$PATH"
+          export PATH=/opt/devkitpro/tools/bin:$PATH
           make
         env:
           DEVKITPRO: /opt/devkitpro
