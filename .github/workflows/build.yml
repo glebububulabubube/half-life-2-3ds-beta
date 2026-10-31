@@ -28,6 +28,7 @@ jobs:
 
       - name: Build
         run: |
+          mkdir -p build
           cp hl-demo.rsf build/hl-demo.rsf
           make
 
