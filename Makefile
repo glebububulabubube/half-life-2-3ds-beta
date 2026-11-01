@@ -25,3 +25,4 @@ $(TARGET).cia: $(TARGET).elf
 
 clean:
 	rm -f *.o *.elf *.cia
+
